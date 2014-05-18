@@ -1,0 +1,35 @@
+﻿@model GiftRegMVC.Models.GiftRegistry.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Item</legend>
+
+    <div class="display-label">Description</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">Quantity</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Quantity)
+    </div>
+
+    <div class="display-label">URL</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.URL)
+    </div>
+
+    <div class="display-label">Comment</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Comment)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

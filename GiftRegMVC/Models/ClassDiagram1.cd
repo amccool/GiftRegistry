@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GiftRegMVC.Models.GiftRegistry.Store" Collapsed="true">
+    <Position X="9.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GiftRegistry\Store.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GiftRegMVC.Models.GiftRegistry.Item" Collapsed="true">
+    <Position X="8" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAQAgAAAAAAAAAAAAACAAAAAAAAAAgRAACAA=</HashCode>
+      <FileName>Models\GiftRegistry\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GiftRegMVC.Models.GiftRegistry.Rank" Collapsed="true">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GiftRegistry\Rank.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GiftRegMVC.Models.GiftRegistry.Registry" Collapsed="true">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAACEAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Models\GiftRegistry\Registry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GiftRegMVC.Models.GiftRegistry.Money" Collapsed="true">
+    <Position X="11.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GiftRegistry\Money.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GiftRegMVC.Models.Group" Collapsed="true">
+    <Position X="9.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GiftRegistry\Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GiftRegMVC.Models.GiftRegistry.Category" Collapsed="true">
+    <Position X="8" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GiftRegistry\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GiftRegMVC.Models.GiftRegistry.Person" Collapsed="true">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Models\GiftRegistry\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

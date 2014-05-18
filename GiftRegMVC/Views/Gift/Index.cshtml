@@ -1,0 +1,638 @@
+﻿@model GiftRegMVC.ViewModels.GiftMainViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $("#myItemsTable").tablesorter();
+    });
+</script>
+
+<h2>FakeItems</h2>
+
+
+<h2>Gifts I'm asking for</h2>
+<table class="tablesorter" width="100%" cellspacing="0" id="myItemsTable">
+    <thead>
+    <tr>
+        <th class="colheader">Description</th>
+        <th class="colheader">Ranking</th>
+        <th class="colheader">Category</th>
+        <th class="rcolheader">Price</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.myItems)
+    {
+    <tr class="evenrow" valign="top">
+        <td>
+        @if (item.Received)
+        {
+            @Html.Display("Received-")
+        }
+        @Html.DisplayFor(modelItem => item.Description)</td>
+        <td nowrap>
+            @for (int i = 0; i < item.Ranking.NumStars; i++)
+			{<img src="@Url.Content("~/images/star_on.gif")" alt="*"/>}
+        </td>
+        <td>@Html.DisplayFor(modelItem => item.Category.Title)</td>
+        <td align="right">@Html.DisplayFor(modelItem => item.Currency.Symbol) @Html.DisplayFor(modelItem => item.Price)</td>
+        <td align="right">
+            <a href="@Url.Action("Receive", "Item", new { id = item.Id })"><img alt="Mark Item Received" src="@Url.Content("~/images/refresh_nav.gif")" border="0" title="Mark Item Received"/></a>&nbsp;
+            <a href="@Url.Action("Edit", "Item", new { id = item.Id })"><img alt="Edit Item" src="@Url.Content("~/images/write_obj.gif")" border="0" title="Edit Item"/></a>&nbsp;
+            <a href="@Url.Action("Delete", "Item", new { id = item.Id })" onclick="return confirmItemDelete('cordless drill / impact driver');"><img alt="Delete Item" src="@Url.Content("~/images/remove.gif")" border="0" alt="Delete" title="Delete Item"/></a>&nbsp;
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
+<p>
+    @Html.ActionLink("Add a new item", "Create", "Item")
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>FakePeople</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>Name
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.pplImShoppingFor)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+			@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+			@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<h2>FakeMessage</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>Description
+        </th>
+        <th>Comment
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.msgs)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+			@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+			@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+<h2>FakeEvents</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>Description
+        </th>
+        <th>Comment
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.events)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+			@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+			@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+
+
+<table border="0" cellpadding="10" cellspacing="5" width="100%">
+    <tr valign="top">
+        <td colspan="2">
+            <p>
+                <table class="partbox" width="100%" cellspacing="0">
+                    <tr class="partboxtitle">
+                        <td colspan="5" align="center">Gifts I'm asking for</td>
+                    </tr>
+                    <tr>
+                        <th class="colheader"><a href="index.php?mysort=description">Description</a></th>
+                        <th class="colheader"><a href="index.php?mysort=ranking">Ranking</a></th>
+                        <th class="colheader"><a href="index.php?mysort=category">Category</a></th>
+                        <th class="rcolheader"><a href="index.php?mysort=price">Price</a></th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr class="evenrow" valign="top">
+                        <td>cordless drill / impact driver</td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"></td>
+                        <td>Tools</td>
+                        <td align="right">$99.00</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=586">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=586">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=586" onclick="return confirmItemDelete('cordless drill / impact driver');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="oddrow" valign="top">
+                        <td>borescope																	<a href="http://www.amazon.com/Ridgid-31123-SeeSnake-Inspection-Camera/dp/B001HX3B0U/ref=sr_1_2?s=hi&ie=UTF8&qid=1290989394&sr=1-2" target="_blank">
+                            <img src="images/links_view.gif" border="0" alt="URL" title="URL"></a>
+                            <a href="javascript:void(0);" onclick="return showItemComment(536);">
+                                <img src="images/topic.gif" border="0" alt="Comment" title="Comment"></a>
+                        </td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""></td>
+                        <td>Tools</td>
+                        <td align="right">$160.00</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=536">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=536">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=536" onclick="return confirmItemDelete('borescope');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="evenrow" valign="top">
+                        <td>Double Door entry welcome mat																	<a href="javascript:void(0);" onclick="return showItemComment(528);">
+                            <img src="images/topic.gif" border="0" alt="Comment" title="Comment"></a>
+                        </td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""></td>
+                        <td>Household</td>
+                        <td align="right">$80.00</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=528">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=528">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=528" onclick="return confirmItemDelete('Double Door entry welcome mat');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="oddrow" valign="top">
+                        <td>Help Installing outside garage lights																	<a href="javascript:void(0);" onclick="return showItemComment(473);">
+                            <img src="images/topic.gif" border="0" alt="Comment" title="Comment"></a>
+                        </td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""></td>
+                        <td>Household</td>
+                        <td align="right">&nbsp;</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=473">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=473">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=473" onclick="return confirmItemDelete('Help Installing outside garage lights');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="evenrow" valign="top">
+                        <td>Laser Measurer																	<a href="javascript:void(0);" onclick="return showItemComment(328);">
+                            <img src="images/topic.gif" border="0" alt="Comment" title="Comment"></a>
+                        </td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""></td>
+                        <td>Tools</td>
+                        <td align="right">&nbsp;</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=328">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=328">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=328" onclick="return confirmItemDelete('Laser Measurer');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="oddrow" valign="top">
+                        <td>REI Gift Certificate																	<a href="http://rei.com" target="_blank">
+                            <img src="images/links_view.gif" border="0" alt="URL" title="URL"></a>
+                        </td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""></td>
+                        <td>Gift Certificates</td>
+                        <td align="right">$10.00</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=523">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=523">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=523" onclick="return confirmItemDelete('REI Gift Certificate');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="evenrow" valign="top">
+                        <td>used  - Wakesurfer board																	<a href="http://www.wholesalemarine.com/c/390014/Wakesurfers.html" target="_blank">
+                            <img src="images/links_view.gif" border="0" alt="URL" title="URL"></a>
+                            <a href="javascript:void(0);" onclick="return showItemComment(538);">
+                                <img src="images/topic.gif" border="0" alt="Comment" title="Comment"></a>
+                        </td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""></td>
+                        <td>Hobbies</td>
+                        <td align="right">$50.00</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=538">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=538">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=538" onclick="return confirmItemDelete('used  - Wakesurfer board');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="oddrow" valign="top">
+                        <td>earthquake kit															</td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""></td>
+                        <td>Household</td>
+                        <td align="right">$30.00</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=1">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=1">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=1" onclick="return confirmItemDelete('earthquake kit');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="evenrow" valign="top">
+                        <td>shoelaces - black 32&quot;															</td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""></td>
+                        <td>Clothing</td>
+                        <td align="right">$2.00</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=459">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=459">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=459" onclick="return confirmItemDelete('shoelaces - black 32\u0022');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                    <tr class="oddrow" valign="top">
+                        <td>tie rack															</td>
+                        <td nowrap>
+                            <img src="images/star_on.gif" alt="*"><img src="images/star_on.gif" alt="*"><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""><img src="images/star_off.gif" alt=""></td>
+                        <td>Clothing</td>
+                        <td align="right">$20.00</td>
+                        <td align="right">
+                            <a href="receive.php?itemid=587">
+                                <img alt="Mark Item Received" src="images/refresh_nav.gif" border="0" title="Mark Item Received"></a>&nbsp;
+								<a href="item.php?action=edit&itemid=587">
+                                    <img alt="Edit Item" src="images/write_obj.gif" border="0" title="Edit Item"></a>&nbsp;
+								<a href="item.php?action=delete&itemid=587" onclick="return confirmItemDelete('tie rack');">
+                                    <img alt="Delete Item" src="images/remove.gif" border="0" alt="Delete" title="Delete Item"></a>&nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </p>
+            <p>
+                <a href="item.php?action=add">Add a new item</a>
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="50%">
+            <p>
+                <table class="partbox" width="100%" cellspacing="0">
+                    <tr class="partboxtitle">
+                        <td colspan="4" align="center">People I'm shopping for</td>
+                    </tr>
+                    <tr>
+                        <th class="colheader">Name</th>
+                        <th class="rcolheader">Last Updated</th>
+                        <th class="rcolheader"># Items</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>
+                            <a href="shop.php?shopfor=8">Alexis McCool</a>
+                        </td>
+                        <td align="right">November 11, 2010</td>
+                        <td align="right">7</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=8">
+                                <img alt="Shop for Alexis McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=8" onclick="return confirmUnshop('Alexis McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Alexis McCool anymore" title="Don't shop for Alexis McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="oddrow">
+                        <td>
+                            <a href="shop.php?shopfor=7">Alyssa McCool</a>
+                        </td>
+                        <td align="right">November 11, 2010</td>
+                        <td align="right">10</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=7">
+                                <img alt="Shop for Alyssa McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=7" onclick="return confirmUnshop('Alyssa McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Alyssa McCool anymore" title="Don't shop for Alyssa McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>
+                            <a href="shop.php?shopfor=4">Ana Paula McCool</a>
+                        </td>
+                        <td align="right">June 19, 2011</td>
+                        <td align="right">5</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=4">
+                                <img alt="Shop for Ana Paula McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=4" onclick="return confirmUnshop('Ana Paula McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Ana Paula McCool anymore" title="Don't shop for Ana Paula McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="oddrow">
+                        <td>
+                            <a href="shop.php?shopfor=22">Annette Schurtz Mccool Hlavac</a>
+                        </td>
+                        <td align="right">December 02, 2011</td>
+                        <td align="right">4</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=22">
+                                <img alt="Shop for Annette Schurtz Mccool Hlavac" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=22" onclick="return confirmUnshop('Annette Schurtz Mccool Hlavac')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Annette Schurtz Mccool Hlavac anymore" title="Don't shop for Annette Schurtz Mccool Hlavac anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>
+                            <a href="shop.php?shopfor=15">Bette Otto</a>
+                        </td>
+                        <td align="right">November 24, 2007</td>
+                        <td align="right">1</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=15">
+                                <img alt="Shop for Bette Otto" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=15" onclick="return confirmUnshop('Bette Otto')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Bette Otto anymore" title="Don't shop for Bette Otto anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="oddrow">
+                        <td>
+                            <a href="shop.php?shopfor=5">Brenda Paola McCool</a>
+                        </td>
+                        <td align="right">November 24, 2011</td>
+                        <td align="right">9</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=5">
+                                <img alt="Shop for Brenda Paola McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=5" onclick="return confirmUnshop('Brenda Paola McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Brenda Paola McCool anymore" title="Don't shop for Brenda Paola McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>
+                            <a href="shop.php?shopfor=12">Christine McCool</a>
+                        </td>
+                        <td align="right">December 19, 2011</td>
+                        <td align="right">7</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=12">
+                                <img alt="Shop for Christine McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=12" onclick="return confirmUnshop('Christine McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Christine McCool anymore" title="Don't shop for Christine McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="oddrow">
+                        <td>
+                            <a href="shop.php?shopfor=16">Jacob McCool</a>
+                        </td>
+                        <td align="right">November 24, 2010</td>
+                        <td align="right">4</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=16">
+                                <img alt="Shop for Jacob McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=16" onclick="return confirmUnshop('Jacob McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Jacob McCool anymore" title="Don't shop for Jacob McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>
+                            <a href="shop.php?shopfor=21">maddie</a>
+                        </td>
+                        <td align="right">December 07, 2011</td>
+                        <td align="right">6</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=21">
+                                <img alt="Shop for maddie" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=21" onclick="return confirmUnshop('maddie')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for maddie anymore" title="Don't shop for maddie anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="oddrow">
+                        <td>
+                            <a href="shop.php?shopfor=2">Mark-David McCool</a>
+                        </td>
+                        <td align="right">December 16, 2011</td>
+                        <td align="right">13</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=2">
+                                <img alt="Shop for Mark-David McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=2" onclick="return confirmUnshop('Mark-David McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Mark-David McCool anymore" title="Don't shop for Mark-David McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>
+                            <a href="shop.php?shopfor=3">Martha McCool</a>
+                        </td>
+                        <td align="right">December 14, 2010</td>
+                        <td align="right">4</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=3">
+                                <img alt="Shop for Martha McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=3" onclick="return confirmUnshop('Martha McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Martha McCool anymore" title="Don't shop for Martha McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="oddrow">
+                        <td>
+                            <a href="shop.php?shopfor=20">Michael McCool</a>
+                            <a href="javascript:void(0);" onclick="return showUserComment(20);">
+                                <img src="images/view.gif" alt="Details" title="Details" border="0"></a>
+                        </td>
+                        <td align="right">December 07, 2011</td>
+                        <td align="right">5</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=20">
+                                <img alt="Shop for Michael McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=20" onclick="return confirmUnshop('Michael McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Michael McCool anymore" title="Don't shop for Michael McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>
+                            <a href="shop.php?shopfor=23">Robert McCool</a>
+                        </td>
+                        <td align="right">-</td>
+                        <td align="right">0</td>
+                        <td align="right">
+                            <a href="index.php?action=cancel&shopfor=23" onclick="return confirmUnshop('Robert McCool')">
+                                <img src="images/remove.gif" border="0" alt="Don't shop for Robert McCool anymore" title="Don't shop for Robert McCool anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="oddrow">
+                        <td>
+                            <a href="shop.php?shopfor=14">Ronald Edward Hlavac</a>
+                        </td>
+                        <td align="right">December 15, 2010</td>
+                        <td align="right">20</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=14">
+                                <img alt="Shop for Ronald Edward Hlavac" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=14" onclick="return confirmUnshop('Ronald Edward Hlavac')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Ronald Edward Hlavac anymore" title="Don't shop for Ronald Edward Hlavac anymore"></a>
+                        </td>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>
+                            <a href="shop.php?shopfor=17">Steve McCool</a>
+                        </td>
+                        <td align="right">November 17, 2010</td>
+                        <td align="right">4</td>
+                        <td align="right">
+                            <a href="shop.php?shopfor=17">
+                                <img alt="Shop for Steve McCool" src="images/tasks_tsk.gif" border="0" alt="Shop" title="Shop"></a>&nbsp;
+																	<a href="index.php?action=cancel&shopfor=17" onclick="return confirmUnshop('Steve McCool')">
+                                                                        <img src="images/remove.gif" border="0" alt="Don't shop for Steve McCool anymore" title="Don't shop for Steve McCool anymore"></a>
+                        </td>
+                    </tr>
+                </table>
+            </p>
+            <p>
+                <table class="partbox" width="100%" cellspacing="0">
+                    <tr class="partboxtitle">
+                        <td colspan="2" align="center">People I'm <i>not</i> shopping for</td>
+                    </tr>
+                    <tr>
+                        <th class="colheader">Name</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr class="evenrow">
+                        <td>Barbie Otto, Daniel, Tyler, Noah, and JJ</td>
+                        <td align="right">
+                            <a href="index.php?action=request&shopfor=18">Add</a>
+                        </td>
+                    </tr>
+                    <tr class="oddrow">
+                        <td>Barbie Otto, Daniel, Tyler, Noah, and JJ</td>
+                        <td align="right">
+                            <a href="index.php?action=request&shopfor=18">Add</a>
+                        </td>
+                    </tr>
+                </table>
+            </p>
+        </td>
+        <td width="50%">
+            <p>
+                <table class="partbox" width="100%" cellspacing="0">
+                    <tr class="partboxtitle">
+                        <td colspan="4" align="center">Messages</td>
+                    </tr>
+                    <tr>
+                        <th class="colheader">Date</th>
+                        <th class="colheader">Sender</th>
+                        <th class="colheader">Message</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><a href="message.php">Send a message</a></td>
+                    </tr>
+                </table>
+            </p>
+            <p>
+                <table class="partbox" width="100%" cellspacing="0">
+                    <tr class="partboxtitle">
+                        <td colspan="4" align="center">Upcoming events (within 60 days)</td>
+                    </tr>
+                    <tr>
+                        <th class="colheader">Name</th>
+                        <th class="colheader">Event</th>
+                        <th class="colheader">Date</th>
+                        <th class="colheader">Days left</th>
+                    </tr>
+                </table>
+            </p>
+        </td>
+    </tr>
+</table>
+<p>
+    <a href="profile.php">Change Password</a>&nbsp;/&nbsp;<a href="profile.php">Update Profile</a>&nbsp;/&nbsp;<a href="event.php">Manage Events</a>&nbsp;/&nbsp;<a href="shoplist.php">My Shopping List</a>&nbsp;/&nbsp;<a href="mylist.php">My Items (printable)</a>
+    / <a href="users.php">Manage Users</a> / <a href="families.php">Manage Families</a> / <a href="categories.php">Manage Categories</a> / <a href="ranks.php">Manage Ranks</a>
+</p>
+<p>
+    <a href="index.php">Refresh</a>&nbsp;/&nbsp;<a href="login.php?action=logout">Logout</a>
+</p>
+
+
+
+

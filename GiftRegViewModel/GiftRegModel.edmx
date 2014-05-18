@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GiftRegModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="GiftRegModelStoreContainer">
+          <EntitySet Name="category" EntityType="GiftRegModel.Store.category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Group" EntityType="GiftRegModel.Store.Group" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GroupMembership" EntityType="GiftRegModel.Store.GroupMembership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="item" EntityType="GiftRegModel.Store.item" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rank" EntityType="GiftRegModel.Store.rank" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Reservation" EntityType="GiftRegModel.Store.Reservation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="user" EntityType="GiftRegModel.Store.user" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Group_user" Association="GiftRegModel.Store.FK_Group_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMembership_Group" Association="GiftRegModel.Store.FK_GroupMembership_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="GroupMembership" EntitySet="GroupMembership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMembership_user" Association="GiftRegModel.Store.FK_GroupMembership_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="GroupMembership" EntitySet="GroupMembership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_user" Association="GiftRegModel.Store.FK_item_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_items_categories" Association="GiftRegModel.Store.FK_items_categories">
+            <End Role="category" EntitySet="category" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_items_ranks" Association="GiftRegModel.Store.FK_items_ranks">
+            <End Role="rank" EntitySet="rank" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_item" Association="GiftRegModel.Store.FK_Reservation_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_user" Association="GiftRegModel.Store.FK_Reservation_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="categoryid" />
+          </Key>
+          <Property Name="categoryid" Type="int" Nullable="false" />
+          <Property Name="category" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="groupId" />
+          </Key>
+          <Property Name="groupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="groupName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ownerUserId" Type="int" Nullable="false" />
+          <Property Name="private" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroupMembership">
+          <Key>
+            <PropertyRef Name="groupMembershipId" />
+          </Key>
+          <Property Name="groupId" Type="int" Nullable="false" />
+          <Property Name="groupMembershipId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="itemid" />
+          </Key>
+          <Property Name="itemid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="price" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="source" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="ranking" Type="int" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="255" />
+          <Property Name="category" Type="int" />
+          <Property Name="comment" Type="text" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="When" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rank">
+          <Key>
+            <PropertyRef Name="rankId" />
+          </Key>
+          <Property Name="rankId" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="rendered" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="rankorder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="reservationId" />
+          </Key>
+          <Property Name="itemid" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="when" Type="datetime" Nullable="false" />
+          <Property Name="purchased" Type="bit" Nullable="false" />
+          <Property Name="reserved" Type="bit" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="reservationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="fullname" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="comment" Type="text" />
+          <Property Name="list_stamp" Type="datetime" />
+          <Property Name="birthday" Type="date" />
+        </EntityType>
+        <Association Name="FK_Group_user">
+          <End Role="user" Type="GiftRegModel.Store.user" Multiplicity="1" />
+          <End Role="Group" Type="GiftRegModel.Store.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="ownerUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMembership_Group">
+          <End Role="Group" Type="GiftRegModel.Store.Group" Multiplicity="1" />
+          <End Role="GroupMembership" Type="GiftRegModel.Store.GroupMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="groupId" />
+            </Principal>
+            <Dependent Role="GroupMembership">
+              <PropertyRef Name="groupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMembership_user">
+          <End Role="user" Type="GiftRegModel.Store.user" Multiplicity="1" />
+          <End Role="GroupMembership" Type="GiftRegModel.Store.GroupMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="GroupMembership">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_user">
+          <End Role="user" Type="GiftRegModel.Store.user" Multiplicity="1" />
+          <End Role="item" Type="GiftRegModel.Store.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_items_categories">
+          <End Role="category" Type="GiftRegModel.Store.category" Multiplicity="0..1" />
+          <End Role="item" Type="GiftRegModel.Store.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="categoryid" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_items_ranks">
+          <End Role="rank" Type="GiftRegModel.Store.rank" Multiplicity="1" />
+          <End Role="item" Type="GiftRegModel.Store.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rank">
+              <PropertyRef Name="rankId" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="ranking" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_item">
+          <End Role="item" Type="GiftRegModel.Store.item" Multiplicity="1" />
+          <End Role="Reservation" Type="GiftRegModel.Store.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="itemid" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_user">
+          <End Role="user" Type="GiftRegModel.Store.user" Multiplicity="1" />
+          <End Role="Reservation" Type="GiftRegModel.Store.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GiftRegModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="GiftRegEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categories" EntityType="GiftRegModel.category" />
+          <EntitySet Name="Groups" EntityType="GiftRegModel.Group" />
+          <EntitySet Name="GroupMemberships" EntityType="GiftRegModel.GroupMembership" />
+          <EntitySet Name="items" EntityType="GiftRegModel.item" />
+          <EntitySet Name="ranks" EntityType="GiftRegModel.rank" />
+          <EntitySet Name="Reservations" EntityType="GiftRegModel.Reservation" />
+          <EntitySet Name="users" EntityType="GiftRegModel.user" />
+          <AssociationSet Name="FK_items_categories" Association="GiftRegModel.FK_items_categories">
+            <End Role="category" EntitySet="categories" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_user" Association="GiftRegModel.FK_Group_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMembership_Group" Association="GiftRegModel.FK_GroupMembership_Group">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="GroupMembership" EntitySet="GroupMemberships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMembership_user" Association="GiftRegModel.FK_GroupMembership_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="GroupMembership" EntitySet="GroupMemberships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_user" Association="GiftRegModel.FK_item_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_items_ranks" Association="GiftRegModel.FK_items_ranks">
+            <End Role="rank" EntitySet="ranks" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_item" Association="GiftRegModel.FK_Reservation_item">
+            <End Role="item" EntitySet="items" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_user" Association="GiftRegModel.FK_Reservation_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="categoryid" />
+          </Key>
+          <Property Name="categoryid" Type="Int32" Nullable="false" />
+          <Property Name="category1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="items" Relationship="GiftRegModel.FK_items_categories" FromRole="category" ToRole="item" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="groupId" />
+          </Key>
+          <Property Name="groupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="groupName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ownerUserId" Type="Int32" Nullable="false" />
+          <Property Name="private" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="GiftRegModel.FK_Group_user" FromRole="Group" ToRole="user" />
+          <NavigationProperty Name="GroupMemberships" Relationship="GiftRegModel.FK_GroupMembership_Group" FromRole="Group" ToRole="GroupMembership" />
+        </EntityType>
+        <EntityType Name="GroupMembership">
+          <Key>
+            <PropertyRef Name="groupMembershipId" />
+          </Key>
+          <Property Name="groupId" Type="Int32" Nullable="false" />
+          <Property Name="groupMembershipId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="GiftRegModel.FK_GroupMembership_Group" FromRole="GroupMembership" ToRole="Group" />
+          <NavigationProperty Name="user" Relationship="GiftRegModel.FK_GroupMembership_user" FromRole="GroupMembership" ToRole="user" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="itemid" />
+          </Key>
+          <Property Name="itemid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="price" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="source" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="ranking" Type="Int32" Nullable="false" />
+          <Property Name="url" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="category" Type="Int32" />
+          <Property Name="comment" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="When" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="category1" Relationship="GiftRegModel.FK_items_categories" FromRole="item" ToRole="category" />
+          <NavigationProperty Name="user" Relationship="GiftRegModel.FK_item_user" FromRole="item" ToRole="user" />
+          <NavigationProperty Name="rank" Relationship="GiftRegModel.FK_items_ranks" FromRole="item" ToRole="rank" />
+          <NavigationProperty Name="Reservations" Relationship="GiftRegModel.FK_Reservation_item" FromRole="item" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="rank">
+          <Key>
+            <PropertyRef Name="rankId" />
+          </Key>
+          <Property Name="rankId" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="rendered" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="rankorder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="items" Relationship="GiftRegModel.FK_items_ranks" FromRole="rank" ToRole="item" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="reservationId" />
+          </Key>
+          <Property Name="itemid" Type="Int32" Nullable="false" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="when" Type="DateTime" Nullable="false" />
+          <Property Name="purchased" Type="Boolean" Nullable="false" />
+          <Property Name="reserved" Type="Boolean" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="reservationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="item" Relationship="GiftRegModel.FK_Reservation_item" FromRole="Reservation" ToRole="item" />
+          <NavigationProperty Name="user" Relationship="GiftRegModel.FK_Reservation_user" FromRole="Reservation" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="fullname" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="list_stamp" Type="DateTime" />
+          <Property Name="birthday" Type="DateTime" />
+          <NavigationProperty Name="Groups" Relationship="GiftRegModel.FK_Group_user" FromRole="user" ToRole="Group" />
+          <NavigationProperty Name="GroupMemberships" Relationship="GiftRegModel.FK_GroupMembership_user" FromRole="user" ToRole="GroupMembership" />
+          <NavigationProperty Name="items" Relationship="GiftRegModel.FK_item_user" FromRole="user" ToRole="item" />
+          <NavigationProperty Name="Reservations" Relationship="GiftRegModel.FK_Reservation_user" FromRole="user" ToRole="Reservation" />
+        </EntityType>
+        <Association Name="FK_items_categories">
+          <End Role="category" Type="GiftRegModel.category" Multiplicity="0..1" />
+          <End Role="item" Type="GiftRegModel.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="categoryid" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_user">
+          <End Role="user" Type="GiftRegModel.user" Multiplicity="1" />
+          <End Role="Group" Type="GiftRegModel.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="ownerUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMembership_Group">
+          <End Role="Group" Type="GiftRegModel.Group" Multiplicity="1" />
+          <End Role="GroupMembership" Type="GiftRegModel.GroupMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="groupId" />
+            </Principal>
+            <Dependent Role="GroupMembership">
+              <PropertyRef Name="groupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMembership_user">
+          <End Role="user" Type="GiftRegModel.user" Multiplicity="1" />
+          <End Role="GroupMembership" Type="GiftRegModel.GroupMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="GroupMembership">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_user">
+          <End Role="user" Type="GiftRegModel.user" Multiplicity="1" />
+          <End Role="item" Type="GiftRegModel.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_items_ranks">
+          <End Role="rank" Type="GiftRegModel.rank" Multiplicity="1" />
+          <End Role="item" Type="GiftRegModel.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rank">
+              <PropertyRef Name="rankId" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="ranking" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_item">
+          <End Role="item" Type="GiftRegModel.item" Multiplicity="1" />
+          <End Role="Reservation" Type="GiftRegModel.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="itemid" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_user">
+          <End Role="user" Type="GiftRegModel.user" Multiplicity="1" />
+          <End Role="Reservation" Type="GiftRegModel.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GiftRegModelStoreContainer" CdmEntityContainer="GiftRegEntities">
+          <EntitySetMapping Name="categories"><EntityTypeMapping TypeName="GiftRegModel.category"><MappingFragment StoreEntitySet="category">
+            <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+            <ScalarProperty Name="category1" ColumnName="category" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Groups"><EntityTypeMapping TypeName="GiftRegModel.Group"><MappingFragment StoreEntitySet="Group">
+            <ScalarProperty Name="groupId" ColumnName="groupId" />
+            <ScalarProperty Name="groupName" ColumnName="groupName" />
+            <ScalarProperty Name="ownerUserId" ColumnName="ownerUserId" />
+            <ScalarProperty Name="private" ColumnName="private" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="GroupMemberships"><EntityTypeMapping TypeName="GiftRegModel.GroupMembership"><MappingFragment StoreEntitySet="GroupMembership">
+            <ScalarProperty Name="groupId" ColumnName="groupId" />
+            <ScalarProperty Name="groupMembershipId" ColumnName="groupMembershipId" />
+            <ScalarProperty Name="userId" ColumnName="userId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="items"><EntityTypeMapping TypeName="GiftRegModel.item"><MappingFragment StoreEntitySet="item">
+            <ScalarProperty Name="itemid" ColumnName="itemid" />
+            <ScalarProperty Name="userid" ColumnName="userid" />
+            <ScalarProperty Name="description" ColumnName="description" />
+            <ScalarProperty Name="price" ColumnName="price" />
+            <ScalarProperty Name="source" ColumnName="source" />
+            <ScalarProperty Name="ranking" ColumnName="ranking" />
+            <ScalarProperty Name="url" ColumnName="url" />
+            <ScalarProperty Name="category" ColumnName="category" />
+            <ScalarProperty Name="comment" ColumnName="comment" />
+            <ScalarProperty Name="quantity" ColumnName="quantity" />
+            <ScalarProperty Name="When" ColumnName="When" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ranks"><EntityTypeMapping TypeName="GiftRegModel.rank"><MappingFragment StoreEntitySet="rank">
+            <ScalarProperty Name="rankId" ColumnName="rankId" />
+            <ScalarProperty Name="title" ColumnName="title" />
+            <ScalarProperty Name="rendered" ColumnName="rendered" />
+            <ScalarProperty Name="rankorder" ColumnName="rankorder" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Reservations"><EntityTypeMapping TypeName="GiftRegModel.Reservation"><MappingFragment StoreEntitySet="Reservation">
+            <ScalarProperty Name="itemid" ColumnName="itemid" />
+            <ScalarProperty Name="userid" ColumnName="userid" />
+            <ScalarProperty Name="when" ColumnName="when" />
+            <ScalarProperty Name="purchased" ColumnName="purchased" />
+            <ScalarProperty Name="reserved" ColumnName="reserved" />
+            <ScalarProperty Name="quantity" ColumnName="quantity" />
+            <ScalarProperty Name="reservationId" ColumnName="reservationId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="users"><EntityTypeMapping TypeName="GiftRegModel.user"><MappingFragment StoreEntitySet="user">
+            <ScalarProperty Name="userid" ColumnName="userid" />
+            <ScalarProperty Name="username" ColumnName="username" />
+            <ScalarProperty Name="password" ColumnName="password" />
+            <ScalarProperty Name="fullname" ColumnName="fullname" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="comment" ColumnName="comment" />
+            <ScalarProperty Name="list_stamp" ColumnName="list_stamp" />
+            <ScalarProperty Name="birthday" ColumnName="birthday" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="GiftRegModel">
+        <EntityTypeShape EntityType="GiftRegModel.category" Width="1.5" PointX="0.75" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiftRegModel.Group" Width="1.5" PointX="3" PointY="5.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiftRegModel.GroupMembership" Width="1.5" PointX="5.25" PointY="5.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiftRegModel.item" Width="1.5" PointX="3" PointY="0.75" Height="3.9033007812499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiftRegModel.rank" Width="1.5" PointX="0.75" PointY="9.375" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiftRegModel.Reservation" Width="1.5" PointX="5.25" PointY="2.125" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiftRegModel.user" Width="1.5" PointX="0.75" PointY="5" Height="3.3263964843749996" IsExpanded="true" />
+        <AssociationConnector Association="GiftRegModel.FK_items_categories" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.797841796875" />
+          <ConnectorPoint PointX="2.7291666666666665" PointY="2.7978417968749993" />
+          <ConnectorPoint PointX="2.8958333333333335" PointY="2.797841796875" />
+          <ConnectorPoint PointX="3" PointY="2.797841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="GiftRegModel.FK_Group_user" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.7112939453125" />
+          <ConnectorPoint PointX="2.7291666666666665" PointY="6.7112939453124989" />
+          <ConnectorPoint PointX="2.8958333333333335" PointY="6.7112939453125" />
+          <ConnectorPoint PointX="3" PointY="6.7112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="GiftRegModel.FK_GroupMembership_Group" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="6.7401432291666659" />
+          <ConnectorPoint PointX="5.25" PointY="6.7401432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="GiftRegModel.FK_GroupMembership_user" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.0932421875" />
+          <ConnectorPoint PointX="2.7291666666666665" PointY="8.0932421875" />
+          <ConnectorPoint PointX="2.8958333333333335" PointY="8.0932421875" />
+          <ConnectorPoint PointX="6" PointY="8.0932421875" />
+          <ConnectorPoint PointX="6" PointY="7.7302864583333317" />
+        </AssociationConnector>
+        <AssociationConnector Association="GiftRegModel.FK_item_user" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.0069220769230771" />
+          <ConnectorPoint PointX="2.65625" PointY="4.6006720769230771" />
+          <ConnectorPoint PointX="2.65625" PointY="4.99705078125" />
+          <ConnectorPoint PointX="2.7535744349011204" PointY="4.8997263463488778" />
+          <ConnectorPoint PointX="2.8714255650988791" PointY="4.78187521615112" />
+          <ConnectorPoint PointX="3" PointY="4.65330078125" />
+        </AssociationConnector>
+        <AssociationConnector Association="GiftRegModel.FK_items_ranks" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="9.43846053846154" />
+          <ConnectorPoint PointX="2.8125" PointY="8.87596053846154" />
+          <ConnectorPoint PointX="2.8125" PointY="1.7426688984374992" />
+          <ConnectorPoint PointX="3" PointY="1.7426688984374992" />
+        </AssociationConnector>
+        <AssociationConnector Association="GiftRegModel.FK_Reservation_item" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="3.389150390625" />
+          <ConnectorPoint PointX="5.25" PointY="3.389150390625" />
+        </AssociationConnector>
+        <AssociationConnector Association="GiftRegModel.FK_Reservation_user" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.025383615384615" />
+          <ConnectorPoint PointX="2.5" PointY="4.775383615384615" />
+          <ConnectorPoint PointX="2.5" PointY="5.2494921875" />
+          <ConnectorPoint PointX="2.7291666666666665" PointY="5.2494921874999987" />
+          <ConnectorPoint PointX="2.8958333333333335" PointY="5.2494921875" />
+          <ConnectorPoint PointX="4.875" PointY="5.2494921875" />
+          <ConnectorPoint PointX="5.25" PointY="4.8744921875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
